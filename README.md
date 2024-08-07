@@ -1,6 +1,6 @@
 # wol-API
-API for watchtower online library
 
+API for watchtower online library
 
 ## Setup
 
@@ -25,3 +25,6 @@ npm run test
 ```
 npm run dev
 ```
+
+> [!WARNING]  
+> Remember to create a .env file for the production environment to avoid security issues in the log errors
