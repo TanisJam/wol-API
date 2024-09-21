@@ -5,7 +5,7 @@ import { load } from 'cheerio';
 const router = express.Router();
 
 type WolResponse = {
-  [key: string]: string
+  [key: string]: string;
 };
 
 router.get<
@@ -33,7 +33,9 @@ WolResponse
   // Get all elements that has the class "dc-icon--music"
   const musicElements = $('.dc-icon--music').map((index, element) => {
     // replace if were &nbsp; with a space
-    return $(element).text().replace(/\u00a0/g, ' ');
+    return $(element)
+      .text()
+      .replace(/\u00a0/g, ' ');
   });
 
   // Get a filtered list of elements that match the following criteria:
@@ -61,26 +63,25 @@ WolResponse
     thirdSong: musicElements[2].toString().split(' ')[1],
   };
 
-  
   let section = 0;
   filteredNumberedElements.forEach((element, index) => {
     console.log('Element: ', element);
-    if ( element === element?.toUpperCase() ) {
-      if ( index > 1 ) {
+    if (element === element?.toUpperCase()) {
+      if (index > 1) {
         section += 1;
         console.log('Section is:', section, element);
         meet[`section-${section}`] = element as string;
       }
     }
     // if element start with a digit and a dot, example: 1. or 2.
-    if ( /^\d+\./.test(element || '') ) {
+    if (/^\d+\./.test(element || '')) {
       const key = `section-${section}-point-${element?.split('.')[0]}`;
       meet[key] = `${element} (${filteredNumberedElements[index + 1]})`;
     }
-  },
-  );
+  });
 
   console.log('Meet: ', meet);
+  console.log('test-1');
   res.json(meet);
 });
 
